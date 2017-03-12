@@ -16,7 +16,7 @@ import LLVM.PassManager
 import LLVM.Transforms
 import LLVM.Analysis
 
-import qualified LLVM.General.ExecutionEngine as EE
+import qualified LLVM.ExecutionEngine as EE
 
 foreign import ccall "dynamic" haskFun :: FunPtr (IO Double) -> (IO Double)
 
