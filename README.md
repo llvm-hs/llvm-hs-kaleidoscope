@@ -1,12 +1,12 @@
 llvm-tutorial-standalone
 ------------------------
 
-[![Build Status](https://travis-ci.org/sdiehl/llvm-tutorial-standalone.svg)](https://travis-ci.org/sdiehl/llvm-tutorial-standalone)
+[![Build Status](https://travis-ci.org/llvm-hs/llvm-hs-kaleidoscope.svg)](https://travis-ci.org/llvm-hs/llvm-hs-kaleidoscope)
 [![MIT License](http://img.shields.io/badge/license-mit-blue.svg)](https://github.com/sdiehl/llvm-tutorial-standalone/blob/master/LICENSE)
 
 A minimal LLVM builder. Basically the same code as the [Haskell Kaleidoscope
 tutorial](http://www.stephendiehl.com/llvm/) uses but without going through a
-frontend AST. Multiple people asked for this to be extracted.
+frontend AST.
 
 If you want to roll a custom LLVM compiler backend this might be a good starting
 point for the backend.
