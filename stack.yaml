@@ -4,7 +4,7 @@ packages:
 - '.'
 - location:
     git:    https://github.com/llvm-hs/llvm-hs.git
-    commit: 7d222add19129fc063b3d2d0fd190e98dc8153f9
+    commit: 6aa16d9bb7d29639d3a9e667227e8819f7d8fb51
   extra-dep: true
   subdirs:
     - 'llvm-hs'
