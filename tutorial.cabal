@@ -14,7 +14,7 @@ cabal-version:       >=1.10
 
 executable main
   build-depends:       
-    base         >= 4.6 && <4.10,
+    base         >= 4.6 && <5.0,
     mtl          >= 2.2,
     containers   >= 0.5,
     llvm-hs      >= 4.0,

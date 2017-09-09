@@ -5,7 +5,7 @@ env:
   global:
     - GCC=gcc-5
     - GXX=g++-5
-    - LLVM_VER=3.9.1
+    - LLVM_VER=5.0.0
 
 cache:
   directories:
@@ -44,7 +44,7 @@ install:
   - ln -s $HOME/llvm-build/bin/llvm-config $HOME/bin/llvm-config
   - llvm-config --version
   - stack setup
-  - stack build --only-snapshot
+  - stack build
 
 script:
   - git --version
