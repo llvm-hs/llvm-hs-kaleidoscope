@@ -14,11 +14,11 @@ point for the backend.
 Install
 -------
 
-Check that your installed llvm version is precisely 4.0.
+Check that your installed LLVM version is precisely 5.0.
 
 ```bash
 $ llvm-config --version
-4.0
+5.0
 ```
 
 To build using stack:
