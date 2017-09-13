@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 import JIT
 import Codegen
 import qualified LLVM.AST as AST
