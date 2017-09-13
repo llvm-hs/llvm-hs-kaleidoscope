@@ -1,51 +1,36 @@
-language: c
 sudo: false
+dist: trusty
+language: generic
 
 env:
   global:
     - GCC=gcc-5
     - GXX=g++-5
-    - LLVM_VER=5.0.0
 
 cache:
   directories:
     - $HOME/.stack/
 
+addons:
+  apt:
+    packages:
+      - gcc-5
+      - g++-5
+      - libgmp-dev
+      - llvm-5.0-dev
+    sources:
+      - llvm-toolchain-trusty-5.0
+      - ubuntu-toolchain-r-test
+
 before_install:
   - mkdir -p ~/.local/bin
   - export PATH=~/.local/bin:$PATH
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-  - chmod a+x ~/.local/bin/stack
-  - mkdir -p $HOME/bin
-  - export PATH=$HOME/bin:$PATH
   - export CC=/usr/bin/$GCC
   - export CXX=/usr/bin/$GXX
 
-addons: 
-  apt: 
-    packages: 
-      - gcc-5
-      - g++-5
-      - libgmp-dev
-    sources: 
-      - llvm-toolchain-precise
-      - ubuntu-toolchain-r-test
-
 install:
-  - curl https://cmake.org/files/v3.6/cmake-3.6.1-Linux-x86_64.tar.gz | tar -xzf - -C $HOME
-  - export PATH=$HOME/cmake-3.6.1-Linux-x86_64/bin:$PATH
-  - curl http://releases.llvm.org/${LLVM_VER}/llvm-${LLVM_VER}.src.tar.xz | tar -xJf - -C $HOME
-  - rsync -ac $HOME/llvm-${LLVM_VER}.src/ $HOME/llvm-src
-  - cd $HOME/llvm-src
-  - mkdir -p build && cd build
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/llvm-build -DLLVM_PARALLEL_LINK_JOBS=1 -DLLVM_TARGETS_TO_BUILD=X86 ..
-  - make install -j3
-  - cd $TRAVIS_BUILD_DIR
-  - ln -s $HOME/llvm-build/bin/llvm-config $HOME/bin/llvm-config
-  - llvm-config --version
-  - stack setup
-  - stack build
+  - stack --no-terminal --install-ghc test --only-dependencies
 
 script:
-  - git --version
-  - stack --version
+  - stack --no-terminal test --haddock --no-haddock-deps
