@@ -159,6 +159,12 @@ instr ty ins = do
   modifyBlock (blk { stack = (ref := ins) : i } )
   return $ local ty ref
 
+unnminstr :: Instruction -> Codegen ()
+unnminstr ins = do
+  blk <- current
+  let i = stack blk
+  modifyBlock (blk { stack = (Do ins) : i } )
+
 terminator :: Named Terminator -> Codegen (Named Terminator)
 terminator trm = do
   blk <- current
@@ -266,8 +272,8 @@ call fn args = instr float $ Call Nothing CC.C [] (Right fn) (toArgs args) [] []
 alloca :: Type -> Codegen Operand
 alloca ty = instr float $ Alloca ty Nothing 0 []
 
-store :: Operand -> Operand -> Codegen Operand
-store ptr val = instr float $ Store False ptr val Nothing 0 []
+store :: Operand -> Operand -> Codegen ()
+store ptr val = unnminstr $ Store False ptr val Nothing 0 []
 
 load :: Operand -> Codegen Operand
 load ptr = instr float $ Load False ptr Nothing 0 []
