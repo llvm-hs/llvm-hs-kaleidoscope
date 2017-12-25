@@ -15,6 +15,8 @@ import Control.Applicative
 import Control.Monad.State
 
 import LLVM.AST
+import LLVM.AST.Typed (typeOf)
+import LLVM.AST.AddrSpace
 import LLVM.AST.Type
 import LLVM.AST.Global
 import qualified LLVM.AST as AST
@@ -66,6 +68,18 @@ external retty label argtys = addDefn $
   , returnType  = retty
   , basicBlocks = []
   }
+
+fnPtr :: Name -> LLVM Type
+fnPtr nm = findType <$> gets moduleDefinitions
+  where
+    findType defs =
+      case fnDefByName of
+        []   -> error $ "Undefined function: " ++ show nm
+        [fn] -> PointerType (typeOf fn) (AddrSpace 0)
+        _    -> error $ "Ambiguous function name: " ++ show nm
+      where
+        globalDefs  = [g | GlobalDefinition g <- defs]
+        fnDefByName = [f | f@(Function { name = nm }) <- globalDefs]
 
 ---------------------------------------------------------------------------------
 -- Types
