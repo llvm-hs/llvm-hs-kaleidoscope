@@ -15,6 +15,8 @@ import Control.Applicative
 import Control.Monad.State
 
 import LLVM.AST
+import LLVM.AST.Typed (typeOf)
+import LLVM.AST.AddrSpace
 import LLVM.AST.Type
 import LLVM.AST.Global
 import qualified LLVM.AST as AST
@@ -66,6 +68,18 @@ external retty label argtys = addDefn $
   , returnType  = retty
   , basicBlocks = []
   }
+
+fnPtr :: Name -> LLVM Type
+fnPtr nm = findType <$> gets moduleDefinitions
+  where
+    findType defs =
+      case fnDefByName of
+        []   -> error $ "Undefined function: " ++ show nm
+        [fn] -> PointerType (typeOf fn) (AddrSpace 0)
+        _    -> error $ "Ambiguous function name: " ++ show nm
+      where
+        globalDefs  = [g | GlobalDefinition g <- defs]
+        fnDefByName = [f | f@(Function { name = nm }) <- globalDefs]
 
 ---------------------------------------------------------------------------------
 -- Types
@@ -158,6 +172,12 @@ instr ty ins = do
   let i = stack blk
   modifyBlock (blk { stack = (ref := ins) : i } )
   return $ local ty ref
+
+unnminstr :: Instruction -> Codegen ()
+unnminstr ins = do
+  blk <- current
+  let i = stack blk
+  modifyBlock (blk { stack = (Do ins) : i } )
 
 terminator :: Named Terminator -> Codegen (Named Terminator)
 terminator trm = do
@@ -266,8 +286,8 @@ call fn args = instr float $ Call Nothing CC.C [] (Right fn) (toArgs args) [] []
 alloca :: Type -> Codegen Operand
 alloca ty = instr float $ Alloca ty Nothing 0 []
 
-store :: Operand -> Operand -> Codegen Operand
-store ptr val = instr float $ Store False ptr val Nothing 0 []
+store :: Operand -> Operand -> Codegen ()
+store ptr val = unnminstr $ Store False ptr val Nothing 0 []
 
 load :: Operand -> Codegen Operand
 load ptr = instr float $ Load False ptr Nothing 0 []

@@ -1,9 +1,7 @@
-resolver: lts-9.3
+resolver: lts-10.0
 packages:
 - '.'
-extra-deps:
-- llvm-hs-pure-5.0.0
-- llvm-hs-5.0.0
+extra-deps: []
 
 flags:
   llvm-hs:
