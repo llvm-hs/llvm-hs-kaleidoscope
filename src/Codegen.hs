@@ -45,7 +45,7 @@ addDefn d = do
   defs <- gets moduleDefinitions
   modify $ \s -> s { moduleDefinitions = defs ++ [d] }
 
-define ::  Type -> ShortByteString -> [(Type, Name)] -> Codegen a -> LLVM ()
+define ::  Type -> ShortByteString -> [(Type, Name)] -> (Type -> Codegen a) -> LLVM ()
 define retty label argtys body = addDefn $
   GlobalDefinition $ functionDefaults {
     name        = Name label
@@ -57,7 +57,15 @@ define retty label argtys body = addDefn $
     bls = createBlocks $ execCodegen $ do
       enter <- addBlock entryBlockName
       _ <- setBlock enter
-      body
+      body ptrThisType
+    ptrThisType = PointerType {
+        pointerReferent = FunctionType {
+            resultType = retty
+          , argumentTypes = map fst argtys
+          , isVarArg = False
+        }
+      , pointerAddrSpace = AddrSpace 0
+      }
 
 external ::  Type -> ShortByteString -> [(Type, Name)] -> LLVM ()
 external retty label argtys = addDefn $

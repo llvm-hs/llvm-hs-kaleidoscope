@@ -69,7 +69,7 @@ initModule = emptyModule "my cool jit"
 
 logic :: LLVM ()
 logic = do
-  define double "main" [] $ do
+  define double "main" [] $ \ptrToMain -> do
     let a = cons $ C.Float (F.Double 10)
     let b = cons $ C.Float (F.Double 20)
     res <- fadd a b
