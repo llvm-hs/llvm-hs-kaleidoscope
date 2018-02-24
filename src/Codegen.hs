@@ -87,7 +87,7 @@ fnPtr nm = findType <$> gets moduleDefinitions
         _    -> error $ "Ambiguous function name: " ++ show nm
       where
         globalDefs  = [g | GlobalDefinition g <- defs]
-        fnDefByName = [f | f@(Function { name = nm }) <- globalDefs]
+        fnDefByName = [f | f@(Function { name = nm' }) <- globalDefs, nm' == nm]
 
 ---------------------------------------------------------------------------------
 -- Types
