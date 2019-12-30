@@ -19,7 +19,7 @@ addons:
       - libgmp-dev
       - llvm-9-dev
     sources:
-      - llvm-toolchain-trusty-9.0
+      - llvm-toolchain-xenial-9
       - ubuntu-toolchain-r-test
 
 before_install:
