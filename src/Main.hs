@@ -1,9 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
-import JIT
+
 import Codegen
+import JIT
 import qualified LLVM.AST as AST
-import qualified LLVM.AST.Float as F
 import qualified LLVM.AST.Constant as C
+import qualified LLVM.AST.Float as F
 
 {-
 

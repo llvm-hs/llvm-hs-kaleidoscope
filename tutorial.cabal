@@ -1,10 +1,10 @@
-name:                tutorial
+name:                kaleidoscope
 version:             0.1.0.0
 synopsis:            Standalone LLVM JIT Tutorial
 license:             MIT
 category:            Compilers
-description:         
-synopsis:            
+description:         LLVM Kaleidoscope tutorial
+synopsis:            LLVM Kaleidoscope tutorial
 license-file:        LICENSE
 author:              Stephen Diehl
 maintainer:          stephen.m.diehl@gmail.com
@@ -18,8 +18,8 @@ executable main
     bytestring   >= 0.10,
     mtl          >= 2.2,
     containers   >= 0.5,
-    llvm-hs      >= 5.0,
-    llvm-hs-pure >= 5.0
+    llvm-hs      >= 9.0 && < 10.0,
+    llvm-hs-pure >= 9.0 && < 10.0
 
   other-modules:
     Codegen
