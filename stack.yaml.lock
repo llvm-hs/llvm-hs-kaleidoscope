@@ -20,7 +20,7 @@ packages:
     hackage: llvm-hs-pure-9.0.0
 snapshots:
 - completed:
-    size: 566883
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/10/0.yaml
-    sha256: d0ee122a83faa02a679829d43b3485b21827c3cc1cce0db8ac8957b78d45bee3
-  original: lts-10.0
+    size: 523443
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/0.yaml
+    sha256: 283773e7120f5446d961eab35ea95c9af9c24187cc178537bd29273200a05171
+  original: lts-14.0
