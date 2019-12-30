@@ -1,5 +1,5 @@
 sudo: false
-dist: trusty
+dist: xenial
 language: generic
 
 env:
@@ -17,9 +17,9 @@ addons:
       - gcc-5
       - g++-5
       - libgmp-dev
-      - llvm-5.0-dev
+      - llvm-9.0-dev
     sources:
-      - llvm-toolchain-trusty-5.0
+      - llvm-toolchain-trusty-9.0
       - ubuntu-toolchain-r-test
 
 before_install:
