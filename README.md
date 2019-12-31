@@ -14,11 +14,11 @@ point for the backend.
 Install
 -------
 
-Check that your installed LLVM version is precisely 5.0.
+Check that your installed LLVM version is precisely 9.0.
 
 ```bash
 $ llvm-config --version
-5.0
+9.0
 ```
 
 To build using stack:
@@ -31,14 +31,13 @@ $ stack exec main
 To build using cabal:
 
 ```bash
-$ cabal sandbox init
-$ cabal install --only-dependencies
-$ cabal build
+$ cabal new-build
 ```
 
 To run:
 
 ```bash
+$ stack run
 $ cabal run
 Preprocessing executable 'standalone' for tutorial-0.2.0.0...
 ; ModuleID = 'my cool jit'

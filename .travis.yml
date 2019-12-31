@@ -1,5 +1,5 @@
 sudo: false
-dist: trusty
+dist: xenial
 language: generic
 
 env:
@@ -17,9 +17,8 @@ addons:
       - gcc-5
       - g++-5
       - libgmp-dev
-      - llvm-5.0-dev
     sources:
-      - llvm-toolchain-trusty-5.0
+      - llvm-toolchain-xenial-9
       - ubuntu-toolchain-r-test
 
 before_install:
@@ -28,6 +27,11 @@ before_install:
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
   - export CC=/usr/bin/$GCC
   - export CXX=/usr/bin/$GXX
+  - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
+  - echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main" | sudo tee -a /etc/apt/sources.list
+  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/ppa
+  - sudo apt-get update
+  - sudo apt-get --yes install llvm-9 llvm-9-dev
 
 install:
   - stack --no-terminal --install-ghc test --only-dependencies
