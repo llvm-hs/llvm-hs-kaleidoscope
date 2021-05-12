@@ -18,7 +18,7 @@ addons:
       - g++-5
       - libgmp-dev
     sources:
-      - llvm-toolchain-xenial-9
+      - llvm-toolchain-xenial-12
       - ubuntu-toolchain-r-test
 
 before_install:
@@ -31,7 +31,7 @@ before_install:
   - echo "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main" | sudo tee -a /etc/apt/sources.list
   - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/ppa
   - sudo apt-get update
-  - sudo apt-get --yes install llvm-9 llvm-9-dev
+  - sudo apt-get --yes install llvm-12 llvm-12-dev
 
 install:
   - stack --no-terminal --install-ghc test --only-dependencies
