@@ -1,30 +1,50 @@
-name:                kaleidoscope
-version:             0.1.0.0
-synopsis:            Standalone LLVM JIT Tutorial
-license:             MIT
-category:            Compilers
-description:         LLVM Kaleidoscope tutorial
-synopsis:            LLVM Kaleidoscope tutorial
-license-file:        LICENSE
-author:              Stephen Diehl
-maintainer:          stephen.m.diehl@gmail.com
-build-type:          Simple
-extra-source-files:  README.md
-cabal-version:       >=1.10
+name:               kaleidoscope
+version:            0.1.0.0
+synopsis:           Standalone LLVM JIT Tutorial
+license:            MIT
+category:           Compilers
+description:        LLVM Kaleidoscope tutorial.
+license-file:       LICENSE
+author:             Stephen Diehl
+maintainer:         stephen.m.diehl@gmail.com
+build-type:         Simple
+extra-source-files: README.md
+cabal-version:      >=1.10
+tested-with:        GHC ==8.10.4
+
+source-repository head
+  type:     git
+  location: https://github.com/llvm-hs-kaleidoscop.git
 
 executable main
-  build-depends:       
-    base         >= 4.6 && <5.0,
-    bytestring   >= 0.10,
-    mtl          >= 2.2,
-    containers   >= 0.5,
-    llvm-hs      >= 9.0 && < 10.0,
-    llvm-hs-pure >= 9.0 && < 10.0
+  build-depends:
+      base          >=4.6  && <4.15
+    , bytestring    >=0.10 && <0.11
+    , containers    >=0.5  && <0.7
+    , llvm-hs       >=12.0 && <13.0
+    , llvm-hs-pure  >=12.0 && <13.0
+    , mtl           >=2.2  && <2.3
 
   other-modules:
     Codegen
     JIT
 
-  default-language:    Haskell2010
-  hs-source-dirs:      src
-  main-is:             Main.hs
+  default-language: Haskell2010
+  hs-source-dirs:   src
+  main-is:          Main.hs
+  ghc-options:
+    -Wall -Wcompat -Widentities -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wredundant-constraints
+    -Wnoncanonical-monad-instances
+
+  if impl(ghc >=8.2)
+    ghc-options: -fhide-source-paths
+
+  if impl(ghc >=8.4)
+    ghc-options: -Wmissing-export-lists -Wpartial-fields
+
+  if impl(ghc >=8.8)
+    ghc-options: -Wmissing-deriving-strategies -fwrite-ide-info -hiedir=.hie
+
+  if impl(ghc >=8.10)
+    ghc-options: -Wunused-packages
