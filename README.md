@@ -17,8 +17,8 @@ Install
 Check that your installed LLVM version is precisely 9.0.
 
 ```bash
-$ llvm-config --version
-9.0
+$ Llvm-config --version
+12.0
 ```
 
 To build using stack:
