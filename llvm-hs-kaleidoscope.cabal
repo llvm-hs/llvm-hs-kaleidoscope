@@ -1,5 +1,5 @@
-name:               kaleidoscope
-version:            0.1.0.0
+name:               llvm-hs-kaleidoscope
+version:            12.0.0
 synopsis:           Standalone LLVM JIT Tutorial
 license:            MIT
 category:           Compilers

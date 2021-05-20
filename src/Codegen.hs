@@ -1,17 +1,16 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DeriveFunctor #-}
 
 module Codegen where
 
-import Control.Applicative
 import Control.Monad.State
 import Data.ByteString.Short
 import Data.Function
 import Data.List
 import qualified Data.Map as Map
-import Data.Monoid ((<>))
 import Data.String
-import Data.Word
 import LLVM.AST
 import qualified LLVM.AST as AST
 import LLVM.AST.AddrSpace
@@ -128,7 +127,7 @@ data CodegenState
         count :: Word, -- Count of unnamed instructions
         names :: Names -- Name Supply
       }
-  deriving (Show)
+  deriving stock (Show)
 
 data BlockState
   = BlockState
@@ -136,7 +135,7 @@ data BlockState
         stack :: [Named Instruction], -- Stack of instructions
         term :: Maybe (Named Terminator) -- Block terminator
       }
-  deriving (Show)
+  deriving stock (Show)
 
 -------------------------------------------------------------------------------
 -- Codegen Operations

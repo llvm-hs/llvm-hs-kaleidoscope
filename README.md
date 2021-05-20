@@ -14,10 +14,10 @@ point for the backend.
 Install
 -------
 
-Check that your installed LLVM version is precisely 9.0.
+Check that your installed LLVM version is 12.X
 
 ```bash
-$ Llvm-config --version
+$ llvm-config --version
 12.0
 ```
 
@@ -60,7 +60,7 @@ Code is split across
 * [Main](https://github.com/llvm-hs/llvm-hs-kaleidoscope/blob/master/src/Main.hs)
 
 The main program will use the embedded LLVM Monad to define a small program
-which will add two constants together. 
+which will add two constants together.
 
 ```haskell
 initModule :: AST.Module
